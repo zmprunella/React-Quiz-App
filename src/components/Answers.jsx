@@ -10,32 +10,31 @@ export default function Answers({
 
   if (!shuffledAnswers.current) {
     shuffledAnswers.current = [...answers];
-    shuffledAnswers.current.sort(() => Math.random() - 0.05);
+    shuffledAnswers.current.sort(() => Math.random() - 0.5);
   }
 
   return (
     <ul id="answers">
-      {" "}
       {shuffledAnswers.current.map((answer) => {
         const isSelected = selectedAnswer === answer;
-        let cssClasse = "";
+        let cssClass = "";
 
         if (answerState === "answered" && isSelected) {
-          cssClasse = "selected";
+          cssClass = "selected";
         }
 
         if (
-          answerState === "correct" ||
-          (answerState === "wrong" && isSelected)
+          (answerState === "correct" || answerState === "wrong") &&
+          isSelected
         ) {
-          cssClasse = answerState;
+          cssClass = answerState;
         }
 
         return (
           <li key={answer} className="answer">
             <button
               onClick={() => onSelect(answer)}
-              className={cssClasse}
+              className={cssClass}
               disabled={answerState !== ""}
             >
               {answer}
